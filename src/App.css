@@ -42,3 +42,22 @@
   padding:10px;
   width: 150px;
 }
+
+.input {
+  border:0;
+  background: none;
+  outline: none;
+  margin-top: 10px;
+  width: 140px;
+  font-size: 11px;
+}
+
+.input:focus {
+  border: solid 1px lightgray;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+  font-size: 11px;
+}
