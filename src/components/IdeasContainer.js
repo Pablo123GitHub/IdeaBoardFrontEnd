@@ -17,7 +17,6 @@ class IdeasContainer extends Component {
     componentDidMount() {
         axios.get('http://localhost:3001/api/v1/ideas')
             .then(res => {
-                console.log('RESPONSE', res)
                 this.setState({
                     ideas:res.data
                 })
@@ -28,7 +27,6 @@ class IdeasContainer extends Component {
     addNewIdea = () => {
         axios.post('http://localhost:3001/api/v1/ideas', {idea: {title: '', body: ''}})
             .then(res => {
-                console.log('RESPONSE', res)
                 const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]]})
                 this.setState({
                     ideas: ideas,
@@ -36,12 +34,18 @@ class IdeasContainer extends Component {
                 })
             })
             .catch(err => console.log(err))
+    }
 
-
+    updateIdea = (idea) => {
+        const ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
+        const ideas = update(this.state.ideas, {[ideaIndex]: { $set: idea }})
+        this.setState({ideas: ideas})
     }
 
 
     render() {
+        console.log('RENDER',this.state.ideas)
+
         return (
             <div className="App">
                 <div className='flex-container'>
@@ -55,7 +59,7 @@ class IdeasContainer extends Component {
                     <div>
                           {this.state.ideas.map((idea)=>{
                               if(this.state.editingIdeaId === idea.id) {
-                                  return (<IdeaForm key={idea.id} idea={idea} />)
+                                  return (<IdeaForm key={idea.id} idea={idea}  updateIdea={this.updateIdea}/>)
                               } else {
                                   return(
                                       <Idea key={idea.id} idea={idea}/>

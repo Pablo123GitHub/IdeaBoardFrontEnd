@@ -25,7 +25,8 @@ class IdeaForm extends Component {
             {idea: idea}
         )
             .then(res => {
-                console.log(res)
+                console.log("HANDLEBLUR", res)
+                this.props.updateIdea(res.data)
             })
             .catch(err => console.log(err))
     }
