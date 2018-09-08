@@ -66,7 +66,6 @@ class IdeasContainer extends Component {
                 })
             })
             .catch(err => console.log(err))
-
     }
 
 
