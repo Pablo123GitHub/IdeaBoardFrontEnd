@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Idea from './Idea'
+import update from 'immutability-helper'
 
 class IdeasContainer extends Component {
 
@@ -22,12 +23,29 @@ class IdeasContainer extends Component {
             .catch(err => console.log(err))
     }
 
+    addNewIdea = () => {
+        axios.post('http://localhost:3001/api/v1/ideas', {idea: {title: '', body: ''}})
+            .then(res => {
+                console.log('RESPONSE', res)
+                const ideas = update(this.state.ideas, { $splice: [[0, 0, res.data]]})
+                this.setState({
+                    ideas: ideas
+                })
+            })
+            .catch(err => console.log(err))
+
+
+    }
+
 
     render() {
         return (
             <div className="App">
                 <div className='flex-container'>
-                    <button className='newIdeaButton'>
+                    <button
+                        className='newIdeaButton'
+                        onClick={this.addNewIdea}
+                    >
                         New Idea
                     </button>
 
