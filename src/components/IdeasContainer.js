@@ -26,14 +26,24 @@ class IdeasContainer extends Component {
     render() {
         return (
             <div className="App">
-                {this.state.ideas.map((idea)=>{
-                    return(
-                     <Idea
-                     key={idea.id}
-                     idea={idea}
-                     />
-                    )
-                })}
+                <div className='flex-container'>
+                    <button className='newIdeaButton'>
+                        New Idea
+                    </button>
+
+                    <div>
+                        {this.state.ideas.map((idea)=>{
+                            return(
+                                <Idea
+                                    key={idea.id}
+                                    idea={idea}
+                                />
+                            )
+                        })}
+                    </div>
+                </div>
+
+
             </div>
         );
     }
